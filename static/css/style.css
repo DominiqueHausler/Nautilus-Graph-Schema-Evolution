@@ -1,0 +1,177 @@
+header {
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+
+.container,
+header {
+    background-color: lightblue;
+}
+
+header div h1 {
+    margin-bottom: 0em;
+    color: #000080;
+}
+
+.wrapper {
+    display: flex;
+}
+
+#nav-div {
+    background-color: yellowgreen;
+    border-top-color: #28a745;
+    border-bottom-color: #28a745;
+}
+
+
+.nav-link {
+    /*add color for left side nav*/
+    color: #0F52BA;
+
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: #0F52BA;
+    /*background-color: #28a745;*/
+    color: white;
+}
+
+body {
+    background-color: azure;
+    text-align: justify;
+    text-align-last: none;
+}
+
+p {
+    display: inline-block;
+    border: 5px;
+    padding: 5px;
+}
+
+.logo {
+    float: left;
+    width: 1.5cm;
+    height: 1.5cm;
+    margin-left: 1.5em;
+    margin-right: 1em;
+}
+
+h2, h3,
+.bi-question-circle-fill {
+    margin-top: 8px;
+    color: #000080;
+}
+
+h4, h5 {
+    color: #0F52BA;
+}
+
+/* CSS Style for Boxes of class rounded */
+.rounded {
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    border: 3px solid yellowgreen;
+    width: auto;
+    height: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-right: 5px;
+    padding: 5px;
+    background-color: azure;
+    /*background-color: #DCDCDC;*/
+    color: blueviolet;
+}
+
+.uncolored {
+    color: black;
+}
+
+.documentation {
+    background-color: snow;
+    border-left-color: orange;
+    border-left-width: 4px;
+    border-right-color: grey;
+    border-right-width: 1px;
+    border-bottom-color: grey;
+    border-bottom-width: 1px;
+    border-top-color: grey;
+    border-top-width: 1px;
+    display: inline-block;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    color: black;
+}
+.col-md-9 {
+    background-color: lightblue;
+}
+.evo-ops-program {
+    background-color: lightblue;
+    border-left-color: gray;
+    border-left-width: 4px;
+    border-right-color: grey;
+    border-right-width: 2px;
+    border-bottom-color: grey;
+    border-bottom-width: 2px;
+    border-top-color: grey;
+    border-top-width: 2px;
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    color: black;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-icon {
+    margin-right: 4px;
+}
+
+.nav-link {
+    padding-left: 26px;
+    padding-right: 26px;
+}
+
+.dropdown-header {
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background: #cccccc;
+    color: #ffffff;
+}
+
+button:disabled, button[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+}
+
+fieldset:nth-child(uneven) {
+    background-color: lightskyblue;
+    padding: 7px;
+    border-bottom-color: #0F52BA;
+    border-bottom-width: 10px;
+}
+
+
+#add_evo_op_button_div {
+    float: right;
+}
+
+.heading_with_icon {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.bi-question-circle-fill {
+    margin-left: 3px
+}

@@ -1,0 +1,109 @@
+/* hides all formset fields at beginning */
+div[id^="div_id_form-"][id$="-type"],
+div[id^="div_id_form-"][id$="-join_options"],
+div[id^="div_id_form-"][id$="-from_field"],
+div[id^="div_id_form-"][id$="-property_key_field"],
+div[id^="div_id_form-"][id$="-feature_text_field"],
+div[id^="div_id_form-"][id$="-property_value_field"],
+div[id^="div_id_form-"][id$="-initial_rel_start_node_field"],
+div[id^="div_id_form-"][id$="-initial_rel_start_node_label_field"],
+div[id^="div_id_form-"][id$="-initial_rel_end_node_field"],
+div[id^="div_id_form-"][id$="-initial_rel_end_node_label_field"],
+div[id^="div_id_form-"][id$="-to_field"],
+div[id^="div_id_form-"][id$="-with_field"],
+div[id^="div_id_form-"][id$="-with_feature_text_field"],
+div[id^="div_id_form-"][id$="-copy_with_rels_field"],
+div[id^="div_id_form-"][id$="-rename_to_field"],
+div[id^="div_id_form-"][id$="-start_node_field"],
+div[id^="div_id_form-"][id$="-start_node_label_field"],
+div[id^="div_id_form-"][id$="-start_node_property_key_field"],
+div[id^="div_id_form-"][id$="-start_node_property_value_field"],
+div[id^="div_id_form-"][id$="-end_node_field"],
+div[id^="div_id_form-"][id$="-end_node_label_field"],
+div[id^="div_id_form-"][id$="-end_node_property_key_field"],
+div[id^="div_id_form-"][id$="-end_node_property_value_field"],
+div[id^="div_id_form-"][id$="-split_at_field"],
+div[id^="div_id_form-"][id$="-ingoing_rel_field"],
+div[id^="div_id_form-"][id$="-outgoing_rel_field"] {
+    display: none;
+}
+
+/* set visibility of labels hidden to keep whitespace above fields */
+label[for^="id_form-"][for$="-with-feature-text-field"],
+label[for^="id_form-"][for$="-property-key-field"],
+label[for^="id_form-"][for$="-property-value-field"],
+label[for^="id_form-"][for$="-feature-text-field"],
+label[for^="id_form-"][for$="-copy_with_rels_field"] {
+    visibility: hidden;
+}
+
+/* hides geo span tags at the beginning */
+.geo-hide-at-beginning {
+    display: none;
+}
+
+#history-span {
+    display: block;
+}
+
+.history-div,
+#current-schema,
+#current-schema {
+    height: 350px;
+    overflow: auto;
+}
+
+.history-p {
+    border: 0px;
+    padding: 0px;
+}
+
+#whole-geo,
+#latest-geo {
+    text-align: left;
+    padding: 10px;
+}
+
+button > svg {
+    margin: 4px;
+}
+
+.info {
+    color: crimson;
+}
+
+
+
+#current-schema-div {
+    display: block;
+}
+
+
+.side-div {
+    padding-left: 0px;
+}
+
+.empty-form {
+    display: none;
+}
+
+canvas {
+    display: block;
+    box-sizing: border-box;
+    height: 400px;
+    width: 800px;
+}
+
+#popup {
+    display: none;
+    color: red;
+    font-size: small;
+}
+
+input[type="range"] {
+  width: 80%;
+}
+
+
+
+

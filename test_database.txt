@@ -1,0 +1,186 @@
+//DBMS - dataBigPicture
+// Have you run it twice? Use `MATCH (n) DETACH DELETE n` to start over.
+CREATE
+  (PROFA:Manager:Person {firstName: 'ProfA', role:'Professor', function: 'Project Manager'}),
+  (ProfB:Manager:Person {firstName: 'ProfB', role:'Professor', function: 'Project Manager'}),
+  (ProfC:Manager:Person {firstName: 'ProfC', role:'Professor', function: 'Project Manager'}),
+  (PD:Person:DataEngineeringGroup {firstName:'PersonD', role:'PhD Student'}),
+  (PE:Person:MultiModelGroup {firstName:'PersonE', role:'PhD Student'}),
+  (PF:Person:Inactive:External {firstName:'PersonF', role:'External PhD Student'}),
+  (PG:Person:MultiModelGroup {firstName:'PersonG', role:'PhD Student'}),
+  (PH:Person:DataEngineeringGroup {firstName:'PersonH', role:'PhD Student'}),
+  (PI:Person:DataEngineeringGroup:External {firstName:'PersonI', role:'External PhD Student'}),
+  (PJ:Person:DataEngineeringGroup:External {firstName:'PersonJ', role:'External PhD Student'}),
+  (PK:Person:DataEngineeringGroup {firstName:'PersonK', role:'Post Doc'}),
+  (PL:Person:MultiModelGroup {firstName:'PersonL', role:'PhD Student'}),
+  (PM:Person:DataEngineeringGroup {firstName:'PersonM', role:'PhD Student'})
+
+CREATE
+  (CityA:PlaceOfWork {name:'UniA', street:'Universitätsstraße', number:1, postalCode: 12345, city:'CityA', category:'Workplace'}),
+  (CityB:PlaceOfWork {name:'UniB', street:'Universitätsstraße', number:2, postalCode:67891, city:'CityB', category:'Workplace'}),
+  (CityC:PlaceOfWork {name:'UniC', street:'Universitätsstraße', number:3, postalCode:23456, city:'CityC', category:'Workplace'})
+
+CREATE (P1:Sponsor {fullName: 'SponsorA', name: 'SA', function:'Sponsor'})
+CREATE (PN1:Project {name:'Project Name A', startYear:2024})
+
+CREATE
+  (PN1)-[:FINANCED_BY]->(P1),
+  (PN1)-[:SUPERVISED_BY]->(PROFA),
+  (PN1)-[:SUPERVISED_BY]->(ProfC),
+  (PN1)-[:SUPERVISED_BY]->(ProfB)
+
+CREATE
+  (PROFA)-[:OVERSEES_PROJECT_OF]->(PE),
+  (ProfB)-[:OVERSEES_PROJECT_OF]->(PG),
+  (ProfB)-[:OVERSEES_PROJECT_OF]->(PH),
+  (ProfB)-[:OVERSEES_PROJECT_OF]->(PK),
+  (ProfB)-[:OVERSEES_DISS_OF]->(PJ),
+  (ProfB)-[:OVERSEES_DISS_OF]->(PI),
+  (ProfC)-[:OVERSEES_PROJECT_OF]->(PL),
+  (ProfC)-[:OVERSEES_PROJECT_OF]->(PF),
+  (ProfC)-[:OVERSEES_PROJECT_OF]->(PM),
+  (ProfC)-[:OVERSEES_PROJECT_OF]->(PD)
+
+CREATE
+  (PL)-[:WORKS_FOR]->(ProfC),
+  (PF)-[:WORKS_FOR]->(ProfC),
+  (PG)-[:WORKS_FOR]->(ProfB),
+  (PI)-[:WORKS_FOR]->(ProfB),
+  (PJ)-[:WORKS_FOR]->(ProfB),
+  (PH)-[:WORKS_FOR]->(ProfB),
+  (PK)-[:WORKS_FOR]->(ProfB),
+  (PE)-[:WORKS_FOR]->(PROFA),
+  (PD)-[:WORKS_FOR]->(ProfC),
+  (PM)-[:WORKS_FOR]->(ProfC)
+
+CREATE
+  (PROFA)-[:WORKS_AT]->(CityB),
+  (ProfC)-[:WORKS_AT]->(CityA),
+  (ProfB)-[:WORKS_AT]->(CityC),
+  (PD)-[:WORKS_AT{as: 'Research Assistant'}]->(CityA),
+  (PE)-[:WORKS_AT{as: ['Research Assistant', 'Project Staff']}]->(CityB),
+  (PF)-[:WORKS_AT]->(CityA),
+  (PG)-[:WORKS_AT{as: ['Research Assistant', 'Project Staff']}]->(CityC),
+  (PI)-[:DOCTORATES_AT]->(CityC),
+  (PH)-[:WORKS_AT{as: 'Research Assistant'}]->(CityC),
+  (PK)-[:WORKS_AT{as: 'Post Doc'}]->(CityC),
+  (PJ)-[:DOCTORATES_AT]->(CityC),
+  (PL)-[:WORKS_AT{as: ['Research Assistant', 'Project Staff']}]->(CityA),
+  (PM)-[:WORKS_AT{as: 'Research Assistant'}]->(CityA)
+
+CREATE
+    (DataEngineering:DataEngineering{name:'Data Engineering Group'}),
+    (MultiModel:MultiModel{name:'Multi-Model Group'})
+
+CREATE
+  (DataPL:Topic:Data {name: 'Data Pipelines'}),
+  (Cloud:Topic {name: 'Cloud'}),
+  (UseCases:Topic {name: 'Use Cases'}),
+  (DomainModel:Topic {name: 'Domain Model'}),
+  (SelfAwareness:Topic {name: 'Self-awareness'}),
+  (SelfAdaption:Topic {name: 'Self-adaption'}),
+  (RequirementsEngineering:Topic {name: 'Requirements Engineering'}),
+  (SchemaExtraction:Topic:Schema {name: 'Schema Extraction'}),
+  (Dependencies:Topic {name: 'Dependencies'}),
+  (SchemaEvolution:Topic:Schema {name: 'Schema Evolution'}),
+  (GraphDatabase:Topic {name: 'Graph Databases', system: 'Neo4j'}),
+  (InterModelLinkage:Topic {name: 'Inter-Model-Linkage'}),
+  (ID:Topic{name:'Inclusion Dependencies'}),
+  (SchemaQuality:Topic:Schema {name: 'Schema Qualitiy'}),
+  (Workload:Topic {name: 'Workload'}),
+  (TestData:Generator {name: 'Testdata'}),
+  (SchemaOptimization:Topic:Schema {name: 'Schema Optimization'}),
+  (SchemaManagement:Topic:Schema {name: 'Schema Management'}),
+  (InfluenceOfDEP:Topic {name: 'Influences of DE Pipelines'}),
+  (DataQuality:Topic:Data{name: 'Data Quality'}),
+  (Provenance:Topic{name:'Provenance'}),
+  (ProvenanceWF:Topic{name:'Workflow Provenance'}),
+  (ProvenanceData:Topic{name:'Data Provenance'})
+
+CREATE
+  (PD)-[:WORKS_ON{topic:'Evolution'}]->(DataPL),
+  (PD)-[:WORKS_ON]->(RequirementsEngineering),
+  (PD)-[:MAIN_TOPIC]->(DataEngineering),
+  (PI)-[:WORKS_ON{topic:'Cloud'}]->(DataPL),
+  (PI)-[:WORKS_ON]->(Cloud),
+  (PI)-[:WORKS_ON {topic: 'Data pipelines in the Cloud'}]->(UseCases),
+  (PI)-[:MAIN_TOPIC]->(DataEngineering),
+  (PH)-[:WORKS_ON{topic:'Data Extraction', utilizing:'ML pipelines'}]->(DataPL),
+  (PH)-[:WORKS_ON]->(DataQuality),
+  (PH)-[:MAIN_TOPIC]->(DataEngineering),
+  (PD)-[:WORKS_ON]->(SelfAwareness),
+  (PD)-[:WORKS_ON]->(SelfAdaption),
+  (PE)-[:WORKS_ON]->(SchemaQuality),
+  (PE)-[:WORKS_ON]->(Dependencies),
+  (PE)-[:WORKS_ON]->(SchemaExtraction),
+  (PE)-[:MAIN_TOPIC]->(MultiModel),
+  (PM)-[:WORKS_ON]->(DataQuality),
+  (PM)-[:WORKS_ON]->(InfluenceOfDEP),
+  (PM)-[:WORKS_ON]->(TestData),
+  (PM)-[:MAIN_TOPIC]->(DataEngineering),
+  (PM)-[:WORKS_ON{programm:'programA'}]->(SelfAdaption),
+  (PG)-[:WORKS_ON]->(InterModelLinkage),
+  (PG)-[:WORKS_ON]->(GraphDatabase),
+  (PG)-[:WORKS_ON]->(Dependencies),
+  (PG)-[:WORKS_ON]->(SchemaExtraction),
+  (PG)-[:WORKS_ON]->(SchemaEvolution),
+  (PG)-[:MAIN_TOPIC]->(MultiModel),
+  (PL)-[:WORKS_ON]->(SchemaManagement),
+  (PL)-[:WORKS_ON]->(Workload),
+  (PL)-[:WORKS_ON]->(SelfAdaption),
+  (PL)-[:WORKS_ON]->(SchemaOptimization),
+  (PL)-[:WORKS_ON]->(SchemaExtraction),
+  (PD)-[:MAIN_TOPIC]->(MultiModel),
+  (PL)-[:WORKS_ON{programm:'Test Data Generator'}]->(TestData),
+  (PF)-[:WORKS_ON]->(SchemaEvolution),
+  (PF)-[:WORKS_ON]->(Dependencies),
+  (PK)-[:WORKS_ON]->(Provenance)
+
+CREATE
+  (SchemaManagement)-[:IS_CONNECTED_TO]->(GraphDatabase),
+  (DataPL)-[:IS_CONNECTED_TO]->(SelfAwareness),
+  (DataPL)-[:IS_CONNECTED_TO]->(Cloud),
+  (DataPL)-[:IS_CONNECTED_TO]->(SelfAdaption),
+  (RequirementsEngineering)-[:IS_CONNECTED_TO]->(UseCases),
+  (RequirementsEngineering)-[:IS_CONNECTED_TO]->(DomainModel),
+  (SchemaEvolution)-[:IS_CONNECTED_TO]->(SelfAwareness),
+  (SchemaEvolution)-[:IS_CONNECTED_TO]->(Dependencies),
+  (GraphDatabase)-[:IS_CONNECTED_TO]->(InterModelLinkage),
+  (InterModelLinkage)-[:IS_CONNECTED_TO]->(Dependencies),
+  (InterModelLinkage)-[:IS_CONNECTED_TO]->(SchemaEvolution),
+  (InterModelLinkage)-[:IS_CONNECTED_TO]->(SchemaExtraction),
+  (InterModelLinkage)-[:IS_CONNECTED_TO]->(ID),
+  (SchemaExtraction)-[:IS_CONNECTED_TO]->(Dependencies),
+  (SchemaExtraction)-[:IS_CONNECTED_TO]->(SchemaQuality),
+  (SchemaQuality)-[:IS_CONNECTED_TO]->(TestData),
+  (SchemaExtraction)-[:IS_CONNECTED_TO]->(SchemaOptimization),
+  (SchemaExtraction)-[:IS_CONNECTED_TO]->(DataQuality),
+  (SchemaOptimization)-[:IS_CONNECTED_TO]->(TestData),
+  (SchemaOptimization)-[:IS_CONNECTED_TO]->(SchemaManagement),
+  (SchemaOptimization)-[:IS_CONNECTED_TO]->(Workload),
+  (InfluenceOfDEP)-[:IS_CONNECTED_TO]->(DataQuality),
+  (InfluenceOfDEP)-[:IS_CONNECTED_TO]->(SelfAdaption),
+  (DataQuality)-[:IS_CONNECTED_TO]->(TestData),
+  (ProvenanceWF)-[:IS_PART_OF]->(Provenance),
+  (ProvenanceData)-[:IS_PART_OF]->(Provenance)
+
+CREATE
+  (TestData)-[:IS_NEEDED_FOR]->(DataQuality),
+  (TestData)-[:IS_NEEDED_FOR]->(SchemaOptimization),
+  (TestData)-[:IS_NEEDED_FOR]->(SchemaExtraction),
+  (TestData)-[:IS_NEEDED_FOR]->(DataPL),
+  (TestData)-[:IS_NEEDED_FOR]->(InterModelLinkage),
+  (RequirementsEngineering)-[:IS_NEEDED_FOR]->(DataPL)
+
+CREATE
+  (TestData)-[:IS_NEEDED_BY]->(PD),
+  (TestData)-[:IS_NEEDED_BY]->(PF),
+  (TestData)-[:IS_NEEDED_BY]->(PE),
+  (TestData)-[:IS_NEEDED_BY]->(PM),
+  (TestData)-[:IS_NEEDED_BY]->(PL),
+  (TestData)-[:IS_NEEDED_BY]->(PH),
+  (TestData)-[:IS_NEEDED_BY]->(PI),
+  (TestData)-[:IS_NEEDED_BY]->(PG),
+  (UseCases)-[:IS_NEEDED_BY]->(PI)
+;
+

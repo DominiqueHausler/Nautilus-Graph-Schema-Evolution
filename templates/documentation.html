@@ -1,0 +1,546 @@
+{% extends "index.html" %}
+{% load static %}
+{% block content %}
+    <link href="{% static 'css/documentation.css' %}" rel="stylesheet">
+
+    <div class="row">
+        <div class="col-md-2">
+
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <h6 class="dropdown-header">General Information</h6>
+                <a class="nav-link active" id="v-pills-general-tab" data-toggle="pill" href="#v-pills-general"
+                   role="tab"
+                   aria-controls="v-pills-general" aria-selected="false">General</a>
+                <a class="nav-link" id="v-pills-terms-tab" data-toggle="pill" href="#v-pills-terms" role="tab"
+                   aria-controls="v-pills-terms" aria-selected="false">Terms</a>
+                <a class="nav-link" id="v-pills-connection-tab" data-toggle="pill" href="#v-pills-connection" role="tab"
+                   aria-controls="v-pills-connection" aria-selected="false">Database Connection</a>
+
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">Evolution Operations</h6>
+
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">Single-type Operations</h6>
+                <a class="nav-link" id="v-pills-add-tab" data-toggle="pill" href="#v-pills-add" role="tab"
+                   aria-controls="v-pills-add" aria-selected="false">Add</a>
+                <a class="nav-link" id="v-pills-rename-tab" data-toggle="pill" href="#v-pills-rename" role="tab"
+                   aria-controls="v-pills-rename" aria-selected="false">Rename</a>
+                <a class="nav-link" id="v-pills-delete-tab" data-toggle="pill" href="#v-pills-delete" role="tab"
+                   aria-controls="v-pills-delete" aria-selected="false">Delete</a>
+                <a class="nav-link" id="v-pills-transform-tab" data-toggle="pill" href="#v-pills-transform" role="tab"
+                   aria-controls="v-pills-transform" aria-selected="false">Transform</a>
+
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">Multi-type Operations</h6>
+                <a class="nav-link" id="v-pills-copy-tab" data-toggle="pill" href="#v-pills-copy" role="tab"
+                   aria-controls="v-pills-copy" aria-selected="false">Copy</a>
+                <a class="nav-link" id="v-pills-move-tab" data-toggle="pill" href="#v-pills-move" role="tab"
+                   aria-controls="v-pills-move" aria-selected="false">Move</a>
+                <a class="nav-link" id="v-pills-split-tab" data-toggle="pill" href="#v-pills-split" role="tab"
+                   aria-controls="v-pills-split" aria-selected="false">Split</a>
+            </div>
+
+
+        </div>
+
+        <div class="col-md-9">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade  show active" id="v-pills-general" role="tabpanel"
+                     aria-labelledby="v-pills-general-tab">
+
+                    <div class="container">
+                        <h2>General Information</h2>
+
+                        <h5>GEO - Graph Evolution Operation</h5>
+                        <div id="paragraph-geo-general">
+                            <p>GEO is a domain-unspecific description of evolution operations for graph databases in
+                                general. This
+                                enables
+                                queries on graph databases without the knowledge of the query language. This advantage
+                                of GEO is that
+                                ordinary people as well as experts are able to use evolution operations to change their
+                                data without
+                                having to
+                                deal with a domain-specific query language.</p>
+                            <p><a href="https://zenodo.org/records/8311214">GEO </a> file published on Zenodo.</p>
+                        </div>
+
+                        <h5>Graph Databases in General</h5>
+                        <p>Graph databases consist of nodes and relationships connection them to one another. A node can
+                            be imaged as a bubble of a mindmap. Nodes are categorized through labels, that also name
+                            them. To define how
+                            two nodes are connected relationships are used. These are named by types. Both nodes and
+                            relationships can inherit properties, giving further information about them. These can make
+                            them individual. -- add pic with student nodes with names</p>
+                        <span class="container rounded documentation center">Nodes and relationships are entity types. <br>
+                    Labels, types and properties are called features. </span>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="v-pills-connection" role="tabpanel"
+                     aria-labelledby="v-pills-connection-tab">
+                    <div class="container">
+                        <h2>Database Connection</h2>
+                        These are the default values of the uri and user. If you did not change them during the
+                        installation process, use them to connect to your Neo4j Desktop application.
+                        <span class="rounded documentation center">
+                            <p><b>URI</b>: bolt://localhost:7687<br><b>User</b>: neo4j</p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="v-pills-terms" role="tabpanel"
+                     aria-labelledby="v-pills-terms-tab">
+                    <div class="container">
+                        <h2>Important Terms</h2>
+                        Add picture and description of important terms here
+                        <span class="rounded documentation center">
+                            <p>Term I</p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="v-pills-add" role="tabpanel"
+                     aria-labelledby="v-pills-add-tab">
+
+                    <div class="container">
+                        <h2>Add Operation</h2>
+                        <p>As the name implies, the add operation is utilized to add additional information to the
+                            database.
+                            This includes entity types and features. To add more information to entities already
+                            present, you can add
+                            features to nodes like labels or properties while relationships can be expanded by
+                            properties only.</p>
+
+                        <h5>Add a node</h5>
+                        <p>This shows how your GEO will look like when your add a node entity to your database. The
+                            first parameter illustrates that a "add" operation is selected. </p>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">add</span>
+                            <span class="rounded geo-tag">node</span>
+                            <span class="rounded geo-tag">with label</span>
+                            <span class="rounded geo-tag uncolored">NewLabel</span>
+                        </span>
+
+
+                        <div class="div-geo-examples">
+                            <p>For the first field choose the evolution operation "add" to introduce a new feature or
+                                entity type. A node is an entity type, therefore, select entity type for the field
+                                "Type". After selecting the type choose "node". The "with" field gives you the option
+                                of choosing between a label, that will categorzie your node, and property, which adds
+                                additional information to your node. If you want your node to contain a label, type in
+                                your label, which will be displayed in GEO at the position of "NewLabel". In case, you
+                                want to add a property, you have two input fields that need to be filled out. First
+                                enter
+                                the name (also known as key). In the second field enter the value.</p>
+                        </div>
+
+                        <h5>Add relationship</h5>
+
+                        <h5>Add label(s)</h5>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">add</span>
+                            <span class="rounded geo-tag">label</span>
+                            <span class="rounded geo-tag uncolored">NewLabel1, NewLabel2, ..., NewLabelN</span>
+                            <span class="rounded geo-tag">to node</span>
+                            <span class="rounded geo-tag">with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                        </span>
+                        <div class="div-geo-examples">
+                            <div class="example-setup">
+                                <p>To add a label, first select the "add" operation at the first position of GEO. Due to
+                                    labels
+                                    being categorized as feature, select "feature" for the type field. Now choose the
+                                    "feature" label. There is the option of adding one or more labels. For more than one
+                                    label just seperate the desired labels by commas. For example
+                                    "NewLabel1, NewLabel2" will add both "NewLabel1" and "NewLabel2" to your node. To
+                                    add one label, type in the name of the desired label. Then
+                                    define the node you want to add your label(s) to. Therefore, that only nodes have
+                                    labels, soly the option node will be selectable. Afterwards choose the label of the
+                                    node to add the "NewLabel(s)" to. This will replace "SelectedLabel". Here only one
+                                    label can be added.
+                                </p>
+                            </div>
+                        </div>
+
+                        <h5>Add a property</h5>
+
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">add</span>
+                            <span class="rounded geo-tag">property</span>
+                            <span class="rounded geo-tag uncolored">propertyName1, propertyName2, ..., propertyNameN</span>
+                            <span class="rounded geo-tag uncolored">with value(s): propertyValue1, propertyValue2, ..., propertyValueN</span>
+
+                        </span>
+
+                        <div class="div-geo-examples">
+                            <div class="example-setup">
+                                <p>Besides labels you can also add properties. Choose the "add" operation and feature
+                                    for the type field because properties are defined as features. Apart from a single
+                                    property name and its value, adding multiple properties works analogous to multiple
+                                    labels. Just seperate the keys and values by commas. All keys will be placed
+                                    in the first text field while all values go in the second field.</p>
+                            </div>
+                        </div>
+
+
+                        <span class="rounded documentation">
+                            <div id="first-div-add-property">
+                            Option 1: <span class="rounded geo-tag">to node</span>
+                            <span class="rounded geo-tag">with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                        </div><br>
+                            <div id="second-div-add-property">
+                            Option 2: <span class="rounded geo-tag">to relationship</span>
+                            <span class="rounded geo-tag">with type</span>
+                            <span class="rounded geo-tag uncolored">SelectType</span>
+                            </div>
+                        </span>
+
+                        <div class="div-geo-examples">
+                            <div class="example-setup">
+                                <p>Properties can be added to either nodes or relationships, therefore, there are two
+                                    options to choose from. Option 1 shows how to add properties to nodes by selecting
+                                    its label. Your text input will replace "SelectType". Option 2 illustrates the
+                                    adding
+                                    process for relationships. Here the type of the relationship to add the properties
+                                    to
+                                    needs to be defined. Analogous to Option 1, the defined type is shown by
+                                    "SelectedType".
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-rename" role="tabpanel" aria-labelledby="v-pills-rename-tab">
+                    <div class="container">
+                        <h2>Rename Operation</h2>
+                        <p> Rename is only available for features, as they are incorporated by the associated entity type. </p>
+                        <h4>Features</h4>
+                        <div class="div-geo-examples">
+                            <div class="example-setup">
+                                <p>All features can be renamed.
+                                    To rename any feature, the old value as well as the new value have to be defined.
+                                    For all of these operations chose "rename" as operation from the first drop-down menu.
+                                </p>
+                            </div>
+                        </div>
+
+                        <h5>Rename label</h5>
+                        <div class="div-geo-examples">
+                            <div class="example-setup">
+                                <p>In order to rename a label, the old label has to be defined as well as the new name you want to rename this feature to.
+                                    The part "of node with label SelectLabel" will be pre define with the same value specified for the first SelectLabel.
+                                </p>
+                            </div>
+                        </div>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">rename</span>
+                            <span class="rounded geo-tag">label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag">of node</span>
+                            <span class="rounded geo-tag">with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag uncolored">to SelectLabel</span>
+                        </span>
+
+                        <h5>Rename type</h5>
+                        <div class="div-geo-examples">
+                            <div class="example-setup">
+                                <p>For renaming a type, the start and end node of the desired relationship have to be defined. GEO
+                                </p>
+                            </div>
+                        </div>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">rename</span>
+                            <span class="rounded geo-tag">type</span>
+                            <span class="rounded geo-tag uncolored">SelectType</span>
+                            <span class="rounded geo-tag">of relationship with start node labeled</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag">and end node labeled</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag uncolored">to SelectType</span>
+                        </span>
+
+                        <h5>Rename property of node</h5>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">rename</span>
+                            <span class="rounded geo-tag">property</span>
+                            <span class="rounded geo-tag uncolored">SelectPropertyName</span>
+                            <span class="rounded geo-tag">of node</span>
+                            <span class="rounded geo-tag">with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag uncolored">to SelectPropertyName</span>
+                        </span>
+
+                        <h5>Rename property of relationship</h5>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">rename</span>
+                            <span class="rounded geo-tag">property</span>
+                            <span class="rounded geo-tag uncolored">SelectPropertyName</span>
+                            <span class="rounded geo-tag">of relationship</span>
+                            <span class="rounded geo-tag">with type</span>
+                            <span class="rounded geo-tag uncolored">SelectType</span>
+                            <span class="rounded geo-tag">starting at node with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag">ending at node with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-delete" role="tabpanel" aria-labelledby="v-pills-delete-tab">
+                    <div class="container">
+                        <h2>Delete Operation</h2>
+                        <p>To remove entity types such as nodes or relationships or any features like labels or
+                            properties
+                            from the database, use the delete operation. Note that a type can not be deleted from a
+                            relationship
+                            because a type is required for a relationship to exist. Nodes on the other hands can exist
+                            without
+                            any labels.</p>
+                        <h4>Entity Types</h4>
+                        <h5>Delete node(s)</h5>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">delete</span>
+                            <span class="rounded geo-tag">node</span>
+                            <span class="rounded geo-tag">with label/ property</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel/ SelectPropertyName</span>
+                        </span>
+                        <p>The GEO above demonstrates how to delete a node entity. Remember that this only works for
+                            nodes
+                            without relationships. If the node has relationships, use X......... add detach
+                            delete....... First
+                            select the delete operation. Due to nodes being defined as entity types, chose entity type
+                            for
+                            the type field. Afterwards, there are to options for the with-field, giving you the
+                            possibility
+                            to select the node to delete either by a property name or a label. Finally type in the label
+                            or
+                            property name you want to search for (this will replace:
+                            SelectLabel/SelectPropertyName).</p>
+
+                        <h5>Delete relationship(s)</h5>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">delete</span>
+                            <span class="rounded geo-tag">relationship</span>
+                            <span class="rounded geo-tag">with type</span>
+                            <span class="rounded geo-tag uncolored">SelectType</span>
+                        </span>
+                        <p>There also is the option of deleting relationships. Remember that this only works for nodes
+                            without relationships. Again select the delete operation and chose entity type for
+                            the type field. Just like before, you can choose between a property name or a type to select
+                            which
+                            relationship you want to delete. Type in the desired type at SelectType.</p>
+
+                        <h4>Features</h4>
+                        <p>Only types can not be removed from the database. This is due to the structure of graph
+                            databases,
+                            in which a type is required for each relationship.</p>
+                        <h5>Delete label(s)</h5>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">delete</span>
+                            <span class="rounded geo-tag">label</span>
+                            <span class="rounded geo-tag uncolored">LabelToDelete1, LabelToDelete2, ... LabelToDeleteN</span>
+                            <span class="rounded geo-tag">of node</span>
+                            <span class="rounded geo-tag">with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                        </span>
+                        <p>In contrast to relationships, nodes can have no, one or multiple labels. Consequently one or
+                            more labels can be removed from node entities. After the delete operation, select feature
+                            for the
+                            type field and enter either one or more labels, that should be deleted. In case of removing
+                            multiple
+                            labels at once, they need to be seperated by commas (LabelToDelete1, LabelToDelete2).</p>
+
+                        <h5>Delete properties</h5>
+
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">delete</span>
+                            <span class="rounded geo-tag">property</span>
+                            <span class="rounded geo-tag uncolored">PropertyName1, PropertyName2, ... PropertyNameN</span>
+                            <span class="rounded geo-tag">of node/ relationship</span>
+                            <span class="rounded geo-tag">with label/ type</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel/ SelectType</span>
+                        </span>
+                        <p>There is the possibility to delete properties for both nodes or relationships. To do so,
+                            select the
+                            feature property and define the property names or keys to delete. These will replace:
+                            PropertyName1, PropertyName2, ... PropertyNameN.
+                            In the same manner as before, multiple names are seperated by comma. After defining the
+                            property names,
+                            select if they belong to either nodes or relationships. Finally type in the label or type to
+                            select
+                            the desired entities.</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-transform" role="tabpanel"
+                     aria-labelledby="v-pills-transform-tab">
+                    <div class="container">
+                        <h2>Transform Operation</h2>
+                        The transfrom operations enables you to change between entity types, meaning a node can be
+                        changed into a
+                        relationship and vice versa. This is only for specific patterns.
+                        <h4>Entity Types</h4>
+                        <h5>Transform node to relationship</h5>
+                        The start node, middle node as well as the end node of the pattern need to be defined. The
+                        middle node then will undergo the transformation. Also, only one relationship between the start
+                        and middle, as well as the middle and end node are allowed. The following picture illustrates
+                        what patterns can be transformed:
+                        <div class="center">
+                            <img class="transform-node"
+                                 src="{% static 'img/documentation/transform_pattern_for_collapseNode.png' %}"
+                                 alt="transform-node" id="transform-node">
+                        </div>
+
+                        <h5>Transform relationship to node</h5>
+                        To transform a relationship into a node, the start and end node of the pattern need to be
+                        defined.
+                        This is necessary to explicitly identify the pattern. Here two new relationships will be created
+                        which
+                        have to be specified upon using the operation. The ingoing relationship is the one pointing
+                        towards the
+                        while the outgoing relationship is pointing away from the newly created node.
+                        <div class="center">
+                            <img class="transform-rel"
+                                 src="{% static 'img/documentation/transform_pattern_for_extractNode.png' %}"
+                                 alt="transform-rel" id="transform-rel">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-copy" role="tabpanel"
+                     aria-labelledby="v-pills-copy-tab">
+                    <div class="container">
+                        <h2>Copy Operation</h2>
+                        <h4>Entity Types</h4>
+                        <h5>Copy node</h5>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">copy</span>
+                            <span class="rounded geo-tag">node</span>
+                            <span class="rounded geo-tag">with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag">with/without relationships</span>
+                            <span class="rounded geo-tag">and remove property key(s): SelectPropertyKey1, SelectPropertyKey2, ...</span>
+                        </span>
+                        <p>Copy nodes will create duplicates of nodes with a specified label and offers multiple options:</p>
+                        <ul>
+                            <li>Node can be either copied with or without their associated relationships.</li>
+                            <li>The last input field makes it possible to directly remove propery keys from the copy. One
+                            or more property keys can be defined in this case.</li>
+                        </ul>
+                        <p>The first option to copy a node with relationships, consequently illustrates a copy of relationships
+                        in combination with copying nodes. Copy relationships is not available on its own as we assume
+                        that relationships are specified for a specific pattern and therefore, creating a new relationship
+                            would be preferred by the user to specify the connection of two nodes. </p>
+                        <h4>Features</h4>
+                        <h5>Copy labels</h5>
+                        <p>It is also possible to copy the labels of a selected node to another node with a different label.</p>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">copy</span>
+                            <span class="rounded geo-tag">label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag">to node</span>
+                            <span class="rounded geo-tag">with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-move" role="tabpanel"
+                     aria-labelledby="v-pills-move-tab">
+                    <div class="container">
+                        <h2>Move Operation</h2>
+                        <p>In contrast to a copy operation, move consists of a copy and a remove operation.</p>
+                        <h4>Entity Types</h4>
+                        <h5>Move node with associated relationships</h5>
+                        <p>Moving a node is only possible if it is connected to other nodes, otherwise there would be no
+                        need to move the node. Consequently, move node can also be seen as the move of a subgraph, consisting
+                        of a node and specific relationships. The following GEO shows, how the start nodes of such a
+                        pattern can be change/switched. </p>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">move</span>
+                            <span class="rounded geo-tag">node</span>
+                            <span class="rounded geo-tag">from current node with label</span>
+                            <span class="rounded geo-tag">label</span>
+                            <span class="rounded geo-tag">with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag">to start node with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                        </span>
+
+                        <h5>Move relationship</h5>
+                        <p>When moving a relationship, it is "extracted" from its old pattern and moved to a new pattern.
+                        This indicates that the relationship will become a new end and start node.</p>
+                        <span class="rounded documentation">
+                            <span class="rounded">move</span>
+                            <span class="rounded">relationship</span>
+                            <span class="rounded">starting at node with label</span>
+                            <span class="rounded uncolored">SelectLabel</span>
+                            <span class="rounded"> and ending at node with label</span>
+                            <span class="rounded uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag">with type</span>
+                            <span class="rounded geo-tag uncolored">SelectType</span>
+                            <span class="rounded geo-tag">to start node with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag">ending at node with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                        </span>
+                        <p>First the old pattern has to be specified including the type of the relationship as well as its
+                        start and end nodes. Afterward the new pattern, to which the relationship will be moved, has to be
+                        defined.</p>
+                        <h4>Features</h4>
+                        <h5>Move label</h5>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">move</span>
+                            <span class="rounded geo-tag">label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel1, SelectLabel2, ... SelectLabelN</span>
+                            <span class="rounded geo-tag">to node with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                        </span>
+
+                        <h5>Move direction</h5>
+                        <p>As only relationships have a direction, this operation is only available for relationships. In contrast
+                        to move relationship, the relationship is ment to keep its start and end nodes. Merely the start node
+                        will be changed to the end node and the end node will become the start node. </p>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">move</span>
+                            <span class="rounded geo-tag">direction</span>
+                            <span class="rounded geo-tag">of relationship</span>
+                            <span class="rounded geo-tag">with type</span>
+                            <span class="rounded geo-tag uncolored">SelectType</span>
+                            <span class="rounded geo-tag">to start node with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag">ending at node with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="v-pills-split" role="tabpanel"
+                     aria-labelledby="v-pills-split-tab">
+                    <div class="container">
+                        <h2>Split Operation</h2>
+                        <h4>Entity Types</h4>
+                        <h5>Split node(s)</h5>
+                        <p>To split entity types such as nodes, the property key to split at is necessary. The property keys will
+                        be ordered alphabetically. The operation results in twice as many nodes as there were originally, but
+                        with different parts of the property keys and their associated values.</p>
+                        <span class="rounded documentation">
+                            <span class="rounded geo-tag">split</span>
+                            <span class="rounded geo-tag">node</span>
+                            <span class="rounded geo-tag">with label</span>
+                            <span class="rounded geo-tag uncolored">SelectLabel</span>
+                            <span class="rounded geo-tag uncolored">at SelectPropertyKey</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row"></div>
+
+{% endblock %}

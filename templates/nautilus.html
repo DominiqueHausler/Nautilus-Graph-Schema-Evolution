@@ -1,0 +1,459 @@
+{% extends "index.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% block content %}
+
+    <link href="{% static 'css/nautilus.css' %}" rel="stylesheet">
+
+    <div class="container">
+
+        <form method="post" id="{{ form_evo_ops.helper.form_id }}">
+
+            <div class="heading_with_icon">
+                <h3>Connect to your Neo4j database</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-question-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"></path>
+                </svg>
+            </div>
+
+            <div class="form-group row">
+
+                <div class="form-group col">
+                    {{ form_db_connection.uri.label }}
+                    {{ form_db_connection.uri }}
+                </div>
+                <div class="form-group col">
+                    {{ form_db_connection.user.label }}
+                    {{ form_db_connection.user }}
+                </div>
+                <div class="form-group col">
+                    {{ form_db_connection.database.label }}
+                    {{ form_db_connection.database }}
+                </div>
+                <div class="form-group col">
+                    {{ form_db_connection.password.label }}
+                    {{ form_db_connection.password }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="form-check">
+                    {{ form_db_connection.save_connection }}
+                    {{ form_db_connection.save_connection.label }}
+                </div>
+
+
+            </div>
+
+            <div id="current-schema-div" class="side-div evo-ops-program">
+
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+                        <button class="nav-link center active" id="nav-initial-node-schema-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-initial-node-schema"
+                                type="button" role="tab" aria-controls="nav-initial-node-schema-contact"
+                                aria-selected="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-bar-chart-line" viewBox="0 0 16 16">
+                                <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1zm1 12h2V2h-2zm-3 0V7H7v7zm-5 0v-3H2v3z"/>
+                            </svg>
+                            Node Statistics
+                        </button>
+                        <button class="nav-link center" id="nav-initial-rel-schema-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-initial-rel-schema"
+                                type="button" role="tab" aria-controls="nav-initial-rel-schema" aria-selected="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-bar-chart-line" viewBox="0 0 16 16">
+                                <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1zm1 12h2V2h-2zm-3 0V7H7v7zm-5 0v-3H2v3z"/>
+                            </svg>
+                            Relationship Statistics
+                        </button>
+
+                    </div>
+                </nav>
+
+
+                <div class="tab-content" id="nav-tabContent">
+
+
+                    <div class="tab-pane fade show active" id="nav-initial-node-schema" role="tabpanel"
+                         aria-labelledby="nav-initial-node-schema-tab">
+
+                        <h5>Initial and latest db statistics for nodes</h5>
+                        <canvas id="initial-and-latest-schema-chart"></canvas>
+                        <input type="range" class="form-range" id="range-datapoints" min="2" max="" value="15">
+                        <div>Number of labels shown: <p id="value-of-range">15</p></div>
+
+                    </div>
+                    <div class="tab-pane fade" id="nav-initial-rel-schema" role="tabpanel"
+                         aria-labelledby="nav-initial-rel-schema-tab">
+                        <h5>Initial and latest db statistics for relationships</h5>
+                        <canvas id="initial-and-latest-rel-schema-chart"></canvas>
+                        <input type="range" class="form-range" id="range-datapoints-rel" min="2" max="" value="15">
+                        <div>Number of types shown: <p id="value-of-range-rels">15</p></div>
+
+                    </div>
+                </div>
+
+
+{#                {{ current_schema_json_data|json_script:"current_schema_json_data" }}#}
+
+                <div class="center">
+                    <input type="submit" class="btn btn-primary form-group center" id="current-schema-button"
+                           name="current-schema-button" value="Get initial db statistics">
+                </div>
+                <div id="popup">
+                    {#                        Uri, user and password necessary! <br> #}
+                    Tick
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-check2" viewBox="0 0 16 16">
+                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
+                    </svg>
+                    checkbox to save your login data.
+                </div>
+            </div>
+
+
+            <div class="heading_with_icon">
+                <h3>Evolution Operation(s)</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-question-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"></path>
+                </svg>
+
+            </div>
+
+            <fieldset class="forms">
+
+                <fieldset id="form-set" class='table'>
+                    <div class="geo-tags">
+                        <!-- Below classes are used to add radius
+                                 to the borders -->
+                        <span class="rounded uncolored span-geo">GEO: </span>
+                        <span class="rounded geo-tag span-evo-op">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning span-entity-type-or-feature">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-define-from-entity-type">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-define-entity-type-or-feature">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-define-property-key">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-define-property-value">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning span-initial-rel-start-node">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-initial-rel-start-node-label">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning span-initial-rel-end-node">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-initial-rel-end-node-label">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning span-to-entity-type">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning span-with-feature">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-define-with-feature">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning span-start-node">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-start-node-label">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-start-node-prop-key">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning span-end-node">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-end-node-label">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-end-node-prop-key">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-rename-to">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-ingoing-rel">-----</span>
+                        <span class="rounded geo-tag geo-hide-at-beginning uncolored span-outgoing-rel">-----</span>
+                    </div>
+
+
+                    {{ formset.management_form|crispy }}
+
+                    <div class="container">
+                        <div class="row">
+                            {% for form in formset_evo_ops %}
+                                {% crispy formset_evo_ops %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+                <fieldset disabled class="empty-form">
+                    <fieldset>
+                        <!-- ToDo: is it necessary to give all GEO numbering just like the forms? -->
+                        <div class="geo-tags">
+                            <!-- Below classes are used to add radius
+                                     to the borders -->
+                            <span class="rounded uncolored span-geo">GEO: </span>
+                            <span class="rounded geo-tag span-evo-op">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning span-entity-type-or-feature">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-define-from-entity-type">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-define-entity-type-or-feature">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-define-property-key">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-define-property-value">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning span-initial-rel-start-node">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-initial-rel-start-node-label">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning span-initial-rel-end-node">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-initial-rel-end-node-label">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning span-to-entity-type">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning span-with-feature">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-define-with-feature">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning span-start-node">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-start-node-label">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-start-node-prop-key">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning span-end-node">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-end-node-label">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-end-node-prop-key">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-rename-to">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-ingoing-rel">-----</span>
+                            <span class="rounded geo-tag geo-hide-at-beginning uncolored span-outgoing-rel">-----</span>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="form-group row">
+                                {{ formset_evo_ops.empty_form|crispy }}
+                            </div>
+                        </div>
+
+
+                        <button type="button" class="btn btn-outline-danger form-group"
+                                data-formset-remove-form>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-dash-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+                            </svg>
+                            Remove
+                        </button>
+                    </fieldset>
+                </fieldset>
+
+                <div class="controls form-group">
+
+                    <button type="button" class="btn btn-success" data-formset-add-form>
+                        Add new form
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" id="submit-button" name="submit-button"
+                           value="Submit">
+                    <input type="button" class="btn btn-primary" value="Reset" id="resetBtn"/>
+                </div>
+
+            </fieldset>
+
+        </form>
+        <br>
+        <br>
+
+
+        <div class="container">
+            <div id="json-content"></div>
+
+
+            <div id="output-information">
+                <h3>Output</h3>
+
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-geo-tab" data-bs-toggle="tab" data-bs-target="#nav-geo"
+                                type="button" role="tab" aria-controls="nav-geo" aria-selected="true">GEO - History
+                        </button>
+                        <button class="nav-link center" id="nav-node-schema-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-node-schema"
+                                type="button" role="tab" aria-controls="nav-node-schema" aria-selected="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-table" viewBox="0 0 16 16">
+                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 2h-4v3h4zm0 4h-4v3h4zm0 4h-4v3h3a1 1 0 0 0 1-1zm-5 3v-3H6v3zm-5 0v-3H1v2a1 1 0 0 0 1 1zm-4-4h4V8H1zm0-4h4V4H1zm5-3v3h4V4zm4 4H6v3h4z"/>
+                            </svg>
+                            Node Schema
+                        </button>
+                        <button class="nav-link center" id="nav-rel-schema-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-rel-schema"
+                                type="button" role="tab" aria-controls="nav-rel-schema" aria-selected="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-table" viewBox="0 0 16 16">
+                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 2h-4v3h4zm0 4h-4v3h4zm0 4h-4v3h3a1 1 0 0 0 1-1zm-5 3v-3H6v3zm-5 0v-3H1v2a1 1 0 0 0 1 1zm-4-4h4V8H1zm0-4h4V4H1zm5-3v3h4V4zm4 4H6v3h4z"/>
+                            </svg>
+                            Relationship Schema
+                        </button>
+                        <button class="nav-link center" id="nav-evo-ops-over-time-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-evo-ops-over-time"
+                                type="button" role="tab" aria-controls="nav-evo-ops-over-time" aria-selected="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-bar-chart-line" viewBox="0 0 16 16">
+                                <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1zm1 12h2V2h-2zm-3 0V7H7v7zm-5 0v-3H2v3z"/>
+                            </svg>
+                            Evo Ops by Transactions
+                        </button>
+
+                    </div>
+                </nav>
+
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-geo" role="tabpanel" aria-labelledby="nav-geo-tab">
+
+                        <div class="rounded documentation evo-ops-program" id="history-span">
+                            <div class="history-div">
+                                <p class="history-p">
+
+                                <div id="latest-geo">
+                                    <h5 class="history-p">Last <b>G</b>raph <b>E</b>volution <b>O</b>perations executed:
+                                    </h5>
+                                    {% for item in history %}
+                                        <pre>{{ item }}</pre>
+                                    {% endfor %}
+                                </div>
+
+                                <div id="whole-geo">
+                                    <h5>Whole History (oldest to newest)</h5>
+                                    {% for geo in whole_geo %}
+                                        <pre>{{ geo }}</pre>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a href="{% url 'EvoOpsApp:download_history' %}">
+                                    <button class="btn btn-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-download" viewBox="0 0 16 16">
+                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"></path>
+                                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                                <a href="{% url 'EvoOpsApp:delete_history' %}">
+                                    <button type="button" class="btn btn-outline-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-trash3"
+                                             viewBox="0 0 16 16">
+                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                                {% if messages %}
+                                    <div class="messages">
+                                        {% for message in messages %}
+                                            <p{% if message.tags %}
+                                                class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-node-schema" role="tabpanel"
+                         aria-labelledby="nav-node-schema-tab">
+                        <div id="current-schema">
+                            <h5>Current Schema of Nodes</h5>
+
+                            <table class="table table-striped" id="node-schema-table">
+                                <thead>
+                                <tr>
+                                    {#                                    <th scope="col">#</th>#}
+                                    <th scope="col">Label</th>
+                                    {#                                    <th scope="col">Entity Type</th>#}
+                                    <th scope="col">Property</th>
+                                    {#                                    <th scope="col">Count</th>#}
+                                    <th scope="col">Connected Relationship</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for node_labels, node_schema_prop_keys, node_schema_relationships in zipped_segments_nodes %}
+                                    <tr>
+                                        <th>{{ node_labels }}</th>
+                                        <td>{{ node_schema_prop_keys }}</td>
+                                        <td>{{ node_schema_relationships }}</td>
+                                    </tr>
+                                {% endfor %}
+
+
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-rel-schema" role="tabpanel" aria-labelledby="nav-rel-schema-tab">
+                        <div id="current-schema">
+
+                            <h5>Current Schema of Relationships</h5>
+                            <table class="table table-striped" id="rel-schema-table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Start/End Label</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Property Key(s)</th>
+                                    <th scope="col">Direction</th>
+                                    <th scope="col">Associated Labels</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for rel_schema_node_key, rel_types, rel_schema_prop_keys, rel_schema_direction, rel_schema_associated_labels in zipped_segments_rels %}
+                                    <tr>
+                                        <td>{{ rel_schema_node_key }}</td>
+                                        <th>{{ rel_types }}</th>
+                                        <td>{{ rel_schema_prop_keys }}</td>
+                                        <td>{{ rel_schema_direction }}</td>
+                                        <td>{{ rel_schema_associated_labels }}</td>
+                                    </tr>
+                                {% endfor %}
+
+
+                                </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-evo-ops-over-time" role="tabpanel"
+                         aria-labelledby="nav-evo-ops-over-time-tab">
+                        <div id="evo-ops-over-time">
+
+                            {{ result_add |json_script:"evo_ops_over_time_add_data" }}
+                            {{ result_rename |json_script:"evo_ops_over_time_rename_data" }}
+                            {{ result_delete |json_script:"evo_ops_over_time_delete_data" }}
+                            {{ result_transform |json_script:"evo_ops_over_time_transform_data" }}
+
+                            {{ result_copy |json_script:"evo_ops_over_time_copy_data" }}
+                            {{ result_move |json_script:"evo_ops_over_time_move_data" }}
+                            {{ result_split |json_script:"evo_ops_over_time_split_data" }}
+                            {{ result_merge |json_script:"evo_ops_over_time_merge_data" }}
+
+                            <h5>Evolution Operations by Transactions</h5>
+                            <canvas id="evo-ops-over-time-chart"></canvas>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+            {{ json_data|json_script:"json-data" }}
+            {{ compared_json_data|json_script }}
+            {{ dict1_initial_schema|json_script:"dict1_initial_schema" }}
+            {{ dict2_new_schema|json_script:"dict2_new_schema" }}
+
+
+        </div>
+
+        <script src="{% static 'js/nautilus.js' %}"></script>
+    </div>
+
+{% endblock %}
