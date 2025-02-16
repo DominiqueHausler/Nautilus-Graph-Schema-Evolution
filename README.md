@@ -3,22 +3,22 @@
     <h1 style="margin-left: 100px;">Nautilus</h1>
 </div>
 
-<div style="padding-top: 10px;">
+
 If you use this code or parts of it, please cite the following paper:
-   <div style="border-color: darkgray; border: dashed 2px; padding: 10px;">
-   @inproceedings{DBLP:conf/models/HauslerK24, <br>
-     author       = {Dominique Hausler and <br>
-                     Meike Klettke},<br>
+   ```
+   @inproceedings{DBLP:conf/models/HauslerK24, 
+     author       = {Dominique Hausler and 
+                     Meike Klettke},
      title        = {Nautilus: Implementation of an Evolution Approach for Graph Databases},
-     booktitle    = {MoDELS (Companion)},<br>
-     pages        = {11--15},<br>
-     publisher    = {{ACM}},<br>
-     year         = {2024}<br>
-   }<br>
-   </div>
-   The Nautilus Logo was created with ChatGPT from Sebastian Hausler and is licenced under CC BY-NC 4.0. All other images are also under the CC BY-NC 4.0 licence.<br>
-   More information can be retrieved from the project webside: <a href="https://www.uni-regensburg.de/informatik-data-science/data-engineering/research/nautilus/index.html" target="_blank">https://www.uni-regensburg.de/informatik-data-science/data-engineering/research/nautilus/index.html</a>
-</div>
+     booktitle    = {MoDELS (Companion)},
+     pages        = {11--15},
+     publisher    = {{ACM}},
+     year         = {2024}
+   }
+   ```
+The Nautilus Logo was created with ChatGPT from Sebastian Hausler and is licenced under CC BY-NC 4.0. All other images are also under the CC BY-NC 4.0 licence.
+More information can be retrieved from the project webside: https://www.uni-regensburg.de/informatik-data-science/data-engineering/research/nautilus/index.html
+
 
 ### Neo4j Desktop Setup
 
